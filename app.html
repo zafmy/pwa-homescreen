@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ZaF · XAUUSD</title>
+  <meta name="theme-color" content="#0B0B0B">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/favicon-32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ZaF">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body class="app">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs><linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE29A"/><stop offset=".5" stop-color="#F5C451"/><stop offset="1" stop-color="#B8862B"/></linearGradient></defs>
+  </svg>
+
+  <!-- Splash -->
+  <div class="splash" id="splash" aria-hidden="true">
+    <svg class="splash-mark" viewBox="0 0 60 40"><g transform="skewX(-28) translate(22 0)" fill="url(#gold)"><rect x="0" y="4" width="7" height="32" rx="1.5"/><rect x="11" y="4" width="7" height="32" rx="1.5"/><rect x="22" y="4" width="7" height="32" rx="1.5"/><rect x="33" y="4" width="7" height="20" rx="1.5"/></g></svg>
+    <h1 class="gold-text">ZaF</h1>
+    <p>Trade Smarter.<br>Trade Gold.</p>
+    <div class="splash-bar"><span></span></div>
+  </div>
+
+  <header class="topbar">
+    <a class="back" href="#more" id="backBtn" aria-label="Back" hidden>
+      <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+    </a>
+    <h1 id="title"><span class="gold-text">ZaF</span></h1>
+    <span class="demo-pill">DEMO</span>
+  </header>
+
+  <main id="view">
+    <!-- HOME -->
+    <section class="screen" data-screen="home" data-title="ZaF">
+      <article class="card quote-card">
+        <div class="quote-row">
+          <span class="coin">Au</span>
+          <div class="sym"><strong>XAUUSD</strong><small>Gold Spot</small></div>
+          <div class="px">
+            <strong class="mono" data-bid>—</strong>
+            <small class="mono" data-change>—</small>
+          </div>
+        </div>
+        <canvas class="chart chart-sm" id="homeChart" aria-label="XAUUSD line chart"></canvas>
+        <div class="chips" data-tf-group="home"></div>
+      </article>
+
+      <article class="card">
+        <h2 class="card-title">Market Sentiment</h2>
+        <div class="sentiment"><span class="buyers" id="sentBar"></span></div>
+        <div class="sent-labels"><span class="up" id="sentBuy">60% Buyers</span><span class="down" id="sentSell">40% Sellers</span></div>
+      </article>
+
+      <a class="card account-mini" href="#account">
+        <div><small>Balance</small><strong class="mono" data-balance>$10,000.00</strong></div>
+        <div><small>Equity</small><strong class="mono" data-equity>$10,000.00</strong></div>
+        <div><small>Open P/L</small><strong class="mono" data-floating>$0.00</strong></div>
+      </a>
+
+      <div class="quick">
+        <a class="qbtn sell" href="#trade" data-quick="sell">SELL<small class="mono" data-bid>—</small></a>
+        <a class="qbtn buy" href="#trade" data-quick="buy">BUY<small class="mono" data-ask>—</small></a>
+      </div>
+    </section>
+
+    <!-- CHART -->
+    <section class="screen" data-screen="chart" data-title="XAUUSD" hidden>
+      <div class="chart-head">
+        <strong class="mono big" data-bid>—</strong>
+        <small class="mono" data-change>—</small>
+        <div class="seg seg-sm" role="group" aria-label="Chart type">
+          <button data-ctype="candle" aria-pressed="true">Candles</button>
+          <button data-ctype="line" aria-pressed="false">Line</button>
+        </div>
+      </div>
+      <canvas class="chart chart-lg" id="bigChart" aria-label="XAUUSD price chart"></canvas>
+      <div class="chips" data-tf-group="chart"></div>
+      <dl class="ohlc mono" id="ohlc"></dl>
+    </section>
+
+    <!-- TRADE -->
+    <section class="screen" data-screen="trade" data-title="Trade" hidden>
+      <div class="quote-row compact">
+        <span class="coin">Au</span>
+        <div class="sym"><strong>XAUUSD</strong><small>Gold Spot · Spread 0.30</small></div>
+      </div>
+
+      <div class="seg" role="tablist" aria-label="Order type">
+        <button role="tab" data-mode="market" aria-selected="true">Market</button>
+        <button role="tab" data-mode="pending" aria-selected="false">Pending</button>
+        <button role="tab" data-mode="sltp" aria-selected="false">SL/TP <i class="dot" id="sltpDot" hidden></i></button>
+      </div>
+
+      <div class="sides">
+        <button class="side sell" data-side="sell" aria-pressed="false">SELL<strong class="mono" data-bid>—</strong></button>
+        <button class="side buy" data-side="buy" aria-pressed="true">BUY<strong class="mono" data-ask>—</strong></button>
+      </div>
+
+      <label class="field" data-show="pending" hidden>
+        <span>Entry price</span>
+        <input type="number" inputmode="decimal" step="0.01" min="0" id="pendingPrice" placeholder="e.g. 2340.00">
+        <small id="pendingKind" class="muted"></small>
+      </label>
+
+      <div data-show="sltp" hidden class="sltp">
+        <label class="field"><span>Stop Loss</span><input type="number" inputmode="decimal" step="0.01" min="0" id="slInput" placeholder="Optional"></label>
+        <label class="field"><span>Take Profit</span><input type="number" inputmode="decimal" step="0.01" min="0" id="tpInput" placeholder="Optional"></label>
+        <button class="link" id="clearStops" type="button">Clear SL/TP</button>
+      </div>
+
+      <div class="field">
+        <span>Volume (Lots)</span>
+        <div class="stepper">
+          <button type="button" data-step="-1" aria-label="Decrease volume">−</button>
+          <input type="number" inputmode="decimal" step="0.01" min="0.01" max="50" id="lots" value="0.10" aria-label="Volume in lots">
+          <button type="button" data-step="1" aria-label="Increase volume">+</button>
+        </div>
+        <div class="lot-chips"><button type="button" data-lot="0.01">0.01</button><button type="button" data-lot="0.10">0.10</button><button type="button" data-lot="0.50">0.50</button><button type="button" data-lot="1.00">1.00</button></div>
+      </div>
+
+      <dl class="kv">
+        <div><dt>Est. Margin</dt><dd class="mono" id="estMargin">—</dd></div>
+        <div><dt>Free Margin</dt><dd class="mono" data-free>—</dd></div>
+        <div><dt>Value per $1 move</dt><dd class="mono" id="perDollar">—</dd></div>
+      </dl>
+
+      <p class="form-error" id="orderError" role="alert"></p>
+      <button class="btn btn-gold place" id="placeOrder">Place Order (Demo)</button>
+
+      <h2 class="list-title">Open Positions <span class="count" id="posCount">0</span></h2>
+      <ul class="list" id="positions"></ul>
+      <h2 class="list-title" id="pendingTitle" hidden>Pending Orders</h2>
+      <ul class="list" id="pendingList"></ul>
+    </section>
+
+    <!-- ANALYSIS -->
+    <section class="screen" data-screen="analysis" data-title="Analysis" hidden>
+      <details class="card tool" open>
+        <summary><span class="t-ico">📈</span><span><strong>Technical Indicators</strong><small>H1 · updates live</small></span></summary>
+        <dl class="kv" id="indicators"></dl>
+        <p class="signal" id="signal"></p>
+      </details>
+      <details class="card tool">
+        <summary><span class="t-ico">🗓️</span><span><strong>Economic Calendar</strong><small>Recurring events that move gold</small></span></summary>
+        <ul class="events">
+          <li><b class="imp high">High</b><span><strong>US Non-Farm Payrolls</strong><small>Usually first Friday of the month · 8:30 ET</small></span></li>
+          <li><b class="imp high">High</b><span><strong>US CPI (Inflation)</strong><small>Monthly, mid-month · 8:30 ET</small></span></li>
+          <li><b class="imp high">High</b><span><strong>FOMC Rate Decision</strong><small>8 meetings per year · 14:00 ET</small></span></li>
+          <li><b class="imp med">Med</b><span><strong>US PCE Price Index</strong><small>Monthly, end of month</small></span></li>
+          <li><b class="imp med">Med</b><span><strong>US Jobless Claims</strong><small>Every Thursday · 8:30 ET</small></span></li>
+        </ul>
+      </details>
+      <details class="card tool">
+        <summary><span class="t-ico">📰</span><span><strong>What Moves Gold</strong><small>Key market drivers</small></span></summary>
+        <ul class="notes">
+          <li><strong>US Dollar.</strong> Gold is priced in USD, so a stronger dollar usually weighs on XAUUSD.</li>
+          <li><strong>Real yields.</strong> Higher inflation-adjusted yields raise the cost of holding a non-yielding asset.</li>
+          <li><strong>Risk sentiment.</strong> Geopolitical stress and market sell-offs often bring safe-haven demand.</li>
+          <li><strong>Central banks.</strong> Official-sector buying supports long-term demand.</li>
+        </ul>
+      </details>
+      <details class="card tool">
+        <summary><span class="t-ico">💡</span><span><strong>Trading Ideas</strong><small>Generated from live indicators</small></span></summary>
+        <div id="ideas"></div>
+        <p class="disclaimer">Educational only. Not financial advice.</p>
+      </details>
+    </section>
+
+    <!-- MORE -->
+    <section class="screen" data-screen="more" data-title="More" hidden>
+      <ul class="menu">
+        <li><a href="#account"><span class="m-ico">👤</span><span><strong>Demo Account</strong><small>Practice risk-free</small></span><b class="mono" data-balance>$10,000</b></a></li>
+        <li class="alert-row">
+          <div><span class="m-ico">🔔</span><span><strong>Price Alert</strong><small id="alertHint">Get notified when XAUUSD reaches a price</small></span></div>
+          <form id="alertForm" class="inline-form">
+            <input type="number" inputmode="decimal" step="0.01" min="0" id="alertPrice" placeholder="Price" aria-label="Alert price" required>
+            <button class="btn btn-gold btn-sm">Set</button>
+          </form>
+          <ul class="list alerts" id="alerts"></ul>
+        </li>
+        <li data-hide-installed><a href="index.html#install"><span class="m-ico">📲</span><span><strong>Install App</strong><small>Add ZaF to your Home Screen</small></span><b>›</b></a></li>
+        <li><a href="index.html#features"><span class="m-ico">ℹ️</span><span><strong>About ZaF</strong><small>Version 1.0 · Demo build</small></span><b>›</b></a></li>
+      </ul>
+    </section>
+
+    <!-- DEMO ACCOUNT -->
+    <section class="screen" data-screen="account" data-title="Demo Account" hidden>
+      <div class="balance-card">
+        <small>Demo Balance</small>
+        <strong class="mono" data-balance>$10,000.00</strong>
+        <div class="bc-row">
+          <span>Equity <b class="mono" data-equity>—</b></span>
+          <span>Free Margin <b class="mono" data-free>—</b></span>
+        </div>
+      </div>
+      <h2 class="list-title">Open Positions <span class="count" data-poscount>0</span></h2>
+      <ul class="list" id="accPositions"></ul>
+      <h2 class="list-title">Trade History</h2>
+      <ul class="list" id="history"></ul>
+      <button class="btn reset" id="resetDemo">Reset Demo</button>
+    </section>
+  </main>
+
+  <nav class="tabbar" aria-label="App sections">
+    <a href="#home" data-tab="home"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 01-1 1h-5v-6h-6v6H4a1 1 0 01-1-1z"/></svg>Home</a>
+    <a href="#chart" data-tab="chart"><svg viewBox="0 0 24 24"><path d="M4 20V4M4 20h16M8 16l4-5 3 3 5-7"/></svg>Chart</a>
+    <a href="#trade" data-tab="trade"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8l4 4-4 4"/></svg>Trade</a>
+    <a href="#analysis" data-tab="analysis"><svg viewBox="0 0 24 24"><path d="M12 3v9l7 4"/><circle cx="12" cy="12" r="9"/></svg>Analysis</a>
+    <a href="#more" data-tab="more"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>More</a>
+  </nav>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="js/app.js"></script>
+  <script src="js/sw-register.js" defer></script>
+</body>
+</html>
