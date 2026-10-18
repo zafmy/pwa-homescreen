@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ZaF — Trade XAUUSD with Clarity</title>
+  <meta name="description" content="ZaF is a simple, focused PWA for XAUUSD gold trading. Install it to your home screen, no app store needed.">
+  <meta name="theme-color" content="#0B0B0B">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/favicon-32.png" sizes="32x32">
+  <link rel="icon" href="icons/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ZaF">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+  <canvas id="sparkles" aria-hidden="true"></canvas>
+
+  <header class="nav" id="top">
+    <a class="brand" href="#top" aria-label="ZaF home">
+      <svg class="brand-mark" viewBox="0 0 60 40" aria-hidden="true"><g transform="skewX(-28) translate(22 0)" fill="url(#gold)"><rect x="0" y="4" width="7" height="32" rx="1.5"/><rect x="11" y="4" width="7" height="32" rx="1.5"/><rect x="22" y="4" width="7" height="32" rx="1.5"/><rect x="33" y="4" width="7" height="20" rx="1.5"/></g></svg>
+      <span>ZaF</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#features">Features</a>
+      <a href="#demo">Demo</a>
+      <a href="#install">Install</a>
+      <a href="#about">About</a>
+    </nav>
+    <a class="btn btn-gold btn-sm" href="#install" data-install-trigger>Install App</a>
+  </header>
+
+  <!-- Shared SVG gradient -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs><linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE29A"/><stop offset=".5" stop-color="#F5C451"/><stop offset="1" stop-color="#B8862B"/></linearGradient></defs>
+  </svg>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="gold-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="hero-copy">
+        <p class="eyebrow split" data-split>Discipline · Data · Execution</p>
+        <h1 class="hero-title">
+          <span class="line"><span>Trade <em class="gold-text">XAUUSD</em></span></span>
+          <span class="line"><span>with Clarity.</span></span>
+        </h1>
+        <p class="lead fade-up" style="--d:.5s">A simple, focused and powerful PWA for gold trading, built for traders who value analysis, discipline and results.</p>
+        <div class="cta-row fade-up" style="--d:.65s">
+          <a class="btn btn-gold" href="app.html">Try Demo App <span aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost" href="#install" data-install-trigger>Install App</a>
+        </div>
+        <ul class="hero-stats fade-up" style="--d:.8s">
+          <li><strong data-count="0.30" data-decimals="2" data-prefix="$">0</strong><span>demo spread</span></li>
+          <li><strong data-count="6">0</strong><span>timeframes M1 → D1</span></li>
+          <li><strong data-count="130" data-suffix="KB">0</strong><span>whole app, gzipped</span></li>
+        </ul>
+      </div>
+
+      <div class="hero-visual" aria-label="ZaF app preview with live XAUUSD chart">
+        <div class="phone tilt" id="heroPhone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="ps-head"><b class="gold-text">ZaF</b><span class="ps-bell" aria-hidden="true">🔔</span></div>
+            <div class="ps-quote">
+              <span class="coin" aria-hidden="true">Au</span>
+              <div>
+                <div class="ps-price" data-live="bid">2,345.67</div>
+                <div class="ps-chg up" data-live="change">+12.34 (+0.53%)</div>
+              </div>
+            </div>
+            <canvas class="ps-chart" id="heroChart"></canvas>
+            <div class="ps-tf"><span>M1</span><span>M5</span><span class="on">M15</span><span>H1</span><span>H4</span></div>
+            <div class="ps-actions">
+              <button class="sell" tabindex="-1">SELL <small data-live="bid">2,345.67</small></button>
+              <button class="buy" tabindex="-1">BUY <small data-live="ask">2,345.97</small></button>
+            </div>
+            <div class="ps-tabs"><span class="on">Home</span><span>Chart</span><span>Trade</span><span>Analysis</span><span>More</span></div>
+          </div>
+        </div>
+        <p class="script-tag" aria-hidden="true">Gold<br>Discipline<br>Better Trades</p>
+      </div>
+    </section>
+
+    <!-- TICKER -->
+    <div class="ticker" aria-label="Simulated market ticker">
+      <div class="ticker-track" id="tickerTrack"></div>
+    </div>
+
+    <!-- FEATURES -->
+    <section class="section" id="features">
+      <header class="section-head reveal">
+        <p class="eyebrow">Why ZaF</p>
+        <h2>Everything a gold trader needs. <span class="muted">Nothing they don't.</span></h2>
+      </header>
+      <div class="features">
+        <article class="feature reveal">
+          <div class="f-icon"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-8M14 8h6v6"/></svg></div>
+          <h3>Real-time XAUUSD chart</h3>
+          <p>Candles and line views across M1 to D1, with live price tags that update every second.</p>
+        </article>
+        <article class="feature reveal">
+          <div class="f-icon"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 12h6M12 9v6"/></svg></div>
+          <h3>Simple &amp; clean interface</h3>
+          <p>One-tap Buy / Sell, lot stepper, SL/TP and margin estimate. Built to keep you calm.</p>
+        </article>
+        <article class="feature reveal">
+          <div class="f-icon"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg></div>
+          <h3>Works on all devices</h3>
+          <p>iPhone, Android, tablet and desktop. Install from the browser with no app store.</p>
+        </article>
+        <article class="feature reveal">
+          <div class="f-icon"><svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></div>
+          <h3>Fast &amp; lightweight PWA</h3>
+          <p>Loads instantly, keeps working offline and updates itself. Nothing to download.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- LIVE DEMO -->
+    <section class="section demo" id="demo">
+      <div class="demo-copy reveal">
+        <p class="eyebrow">Live demo</p>
+        <h2>Practice with <span class="gold-text">$10,000</span> of demo funds.</h2>
+        <p class="lead">This is the real app running right here. Open positions, test SL/TP, and reset whenever you like. Your demo account lives only on your device.</p>
+        <ul class="checks">
+          <li>Market sentiment &amp; daily insights</li>
+          <li>Pending orders with SL / TP</li>
+          <li>Trade history &amp; P/L tracking</li>
+        </ul>
+        <a class="btn btn-gold" href="app.html">Open full screen <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="demo-device reveal">
+        <div class="phone phone-lg">
+          <div class="phone-notch"></div>
+          <iframe class="phone-frame" src="app.html?embed=1" title="ZaF demo app" loading="lazy"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- INSTALL GUIDE -->
+    <section class="section install" id="install">
+      <header class="section-head reveal">
+        <p class="eyebrow">Add to Home Screen</p>
+        <h2>Install ZaF App</h2>
+        <p class="lead">Use ZaF as a PWA on your device for a faster, app-like experience.</p>
+        <ul class="badges">
+          <li>No app store needed</li><li>Works offline (basic)</li><li>Fast and lightweight</li><li>Always up to date</li>
+        </ul>
+      </header>
+
+      <div class="detected reveal" id="detected" hidden>
+        <span class="pulse" aria-hidden="true"></span>
+        <p><span class="muted">Detected:</span> <strong id="detectedName">your device</strong></p>
+        <button class="btn btn-gold btn-sm" id="nativeInstall" hidden>Install now</button>
+      </div>
+
+      <div class="installed-note reveal" id="installedNote" hidden>
+        <p>ZaF is installed on this device. 🎉</p>
+        <a class="btn btn-gold" href="app.html">Open ZaF App</a>
+      </div>
+
+      <div class="ios-warning reveal" id="iosWarning" hidden>
+        <strong>Open this page in Safari to install.</strong>
+        <p>On iPhone and iPad, only Safari can add apps to the Home Screen. Tap <em>•••</em> or the compass icon and choose <em>Open in Safari</em>, or copy the link below.</p>
+        <button class="btn btn-ghost btn-sm" id="copyLink">Copy link</button>
+      </div>
+
+      <div class="guide-tabs" role="tablist" aria-label="Choose your device">
+        <button role="tab" id="tab-android-chrome" aria-controls="panel-android-chrome" data-guide="android-chrome">Android · Chrome</button>
+        <button role="tab" id="tab-android-edge" aria-controls="panel-android-edge" data-guide="android-edge">Android · Edge / Samsung</button>
+        <button role="tab" id="tab-ios" aria-controls="panel-ios" data-guide="ios">iPhone / iPad</button>
+        <button role="tab" id="tab-desktop" aria-controls="panel-desktop" data-guide="desktop">Desktop</button>
+      </div>
+
+      <div class="guides">
+        <!-- Android Chrome -->
+        <article class="guide" role="tabpanel" id="panel-android-chrome" aria-labelledby="tab-android-chrome" data-panel="android-chrome">
+          <div class="guide-head"><span class="b-logo chrome" aria-hidden="true"></span><h3>Android (Chrome)</h3><span class="yours">Your device</span></div>
+          <div class="guide-body">
+            <ol class="steps">
+              <li>Tap the menu <kbd>⋮</kbd> at the top right</li>
+              <li>Tap <strong>Add to Home screen</strong> or <strong>Install app</strong></li>
+              <li>Tap <strong>Install</strong> to confirm</li>
+            </ol>
+            <div class="mini-phone" aria-hidden="true">
+              <div class="mp-bar"><span></span><b>⋮</b></div>
+              <ul class="mp-menu"><li>New tab</li><li>History</li><li>Downloads</li><li class="hl">Add to Home screen</li><li>Desktop site</li><li>Settings</li></ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- Android Edge / Samsung -->
+        <article class="guide" role="tabpanel" id="panel-android-edge" aria-labelledby="tab-android-edge" data-panel="android-edge">
+          <div class="guide-head"><span class="b-logo edge" aria-hidden="true"></span><h3>Android (Edge / Samsung Internet)</h3><span class="yours">Your device</span></div>
+          <div class="guide-body">
+            <ol class="steps">
+              <li>Tap the menu <kbd>⋯</kbd> or <kbd>☰</kbd> at the bottom</li>
+              <li>Tap <strong>Add to phone</strong> (Edge) or <strong>Add page to → Home screen</strong> (Samsung)</li>
+              <li>Tap <strong>Install</strong> / <strong>Add</strong></li>
+            </ol>
+            <div class="mini-phone" aria-hidden="true">
+              <div class="mp-bar"><span></span><b>⋯</b></div>
+              <ul class="mp-menu"><li>New tab</li><li>Share</li><li class="hl">Add to phone</li><li>Find on page</li><li>Desktop site</li><li>Settings</li></ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- iOS -->
+        <article class="guide" role="tabpanel" id="panel-ios" aria-labelledby="tab-ios" data-panel="ios">
+          <div class="guide-head"><span class="b-logo safari" aria-hidden="true"></span><h3>iPhone / iPad (Safari)</h3><span class="yours">Your device</span></div>
+          <div class="guide-body">
+            <ol class="steps">
+              <li>Tap the <strong>Share</strong> button <svg class="share-ico" viewBox="0 0 24 24" aria-label="Share icon"><path d="M12 3v12M8 7l4-4 4 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg> in the toolbar</li>
+              <li>Scroll down and tap <strong>Add to Home Screen</strong> <kbd>⊞</kbd></li>
+              <li>Tap <strong>Add</strong> at the top right</li>
+            </ol>
+            <div class="mini-phone" aria-hidden="true">
+              <div class="mp-share"><span>AirDrop</span><span>Messages</span><span>Mail</span><span>More</span></div>
+              <ul class="mp-menu"><li>Copy</li><li>Add to Reading List</li><li class="hl">Add to Home Screen</li><li>Add to Favourites</li></ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- Desktop -->
+        <article class="guide" role="tabpanel" id="panel-desktop" aria-labelledby="tab-desktop" data-panel="desktop">
+          <div class="guide-head"><span class="b-logo desktop" aria-hidden="true"></span><h3>Desktop (Chrome / Edge)</h3><span class="yours">Your device</span></div>
+          <div class="guide-body">
+            <ol class="steps">
+              <li>Click the <strong>install icon</strong> <kbd>⊕</kbd> on the right of the address bar</li>
+              <li>Or open the browser menu → <strong>Cast, save and share → Install ZaF</strong> (Edge: <strong>Apps → Install</strong>)</li>
+              <li>Click <strong>Install</strong>. ZaF opens in its own window.</li>
+            </ol>
+            <div class="mini-desktop" aria-hidden="true">
+              <div class="md-bar"><span class="md-url">zaf.app</span><b>⊕</b></div>
+              <div class="md-dialog"><strong>Install app?</strong><div class="md-app"><img src="icons/icon-192.png" alt=""><span>ZaF<br><small>zaf.app</small></span></div><div class="md-btns"><span class="primary">Install</span><span>Cancel</span></div></div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Installed result -->
+      <div class="installed-preview reveal">
+        <div class="home-phone" aria-hidden="true">
+          <div class="hp-time">10:30</div>
+          <div class="hp-icon"><img src="icons/icon-192.png" alt=""><span>ZaF</span></div>
+          <div class="hp-dock"><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div>
+          <h3>That's it. ZaF lives on your Home Screen.</h3>
+          <p class="lead">It launches full screen like a native app, with no browser bars and no app store, and it stays up to date automatically.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section about" id="about">
+      <div class="reveal">
+        <svg class="about-mark" viewBox="0 0 60 40" aria-hidden="true"><g transform="skewX(-28) translate(22 0)" fill="url(#gold)"><rect x="0" y="4" width="7" height="32" rx="1.5"/><rect x="11" y="4" width="7" height="32" rx="1.5"/><rect x="22" y="4" width="7" height="32" rx="1.5"/><rect x="33" y="4" width="7" height="20" rx="1.5"/></g></svg>
+        <h2>Trade smarter. <span class="gold-text">Trade gold.</span></h2>
+        <p class="lead">ZaF is built around one instrument and one idea: clear information beats noise. Learn the market in demo mode, build discipline, and execute with confidence.</p>
+        <div class="cta-row center">
+          <a class="btn btn-gold" href="app.html">Try Demo App</a>
+          <a class="btn btn-ghost" href="#install" data-install-trigger>Install App</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> ZaF. Demo prices are simulated for educational purposes and are not live market data.</p>
+    <p class="risk">Trading leveraged products such as XAUUSD carries a high level of risk and may not be suitable for all investors.</p>
+  </footer>
+
+  <!-- iOS bottom sheet hint -->
+  <div class="sheet" id="iosSheet" role="dialog" aria-modal="false" aria-labelledby="iosSheetTitle" hidden>
+    <button class="sheet-close" aria-label="Close">×</button>
+    <img src="icons/icon-192.png" alt="" width="48" height="48">
+    <div>
+      <strong id="iosSheetTitle">Install ZaF on your iPhone</strong>
+      <p>Tap <svg class="share-ico" viewBox="0 0 24 24" aria-label="Share"><path d="M12 3v12M8 7l4-4 4 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg> then <b>Add to Home Screen</b>.</p>
+    </div>
+    <span class="sheet-arrow" aria-hidden="true"></span>
+  </div>
+
+  <script type="module" src="js/landing.js"></script>
+  <script type="module" src="js/install.js"></script>
+  <script src="js/sw-register.js" defer></script>
+</body>
+</html>
